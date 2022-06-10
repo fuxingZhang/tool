@@ -18,7 +18,7 @@ func PrettyPrint(v interface{})
 func TrimStruct(src interface{}) error 
 func CopyStruct(src, dst interface{}) error
 func GetFileMd5(path string) (md5Val string, err error) 
-func FileExists(filepath string) bool 
+func CheckFileExists(filepath string) bool 
 ```
 
 ## usage  

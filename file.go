@@ -2,8 +2,8 @@ package tool
 
 import "os"
 
-// FileExists check if a file exists
-func FileExists(filepath string) bool {
+// CheckFileExists check if a file exists
+func CheckFileExists(filepath string) bool {
 	info, err := os.Stat(filepath)
 	if os.IsNotExist(err) {
 		return false
