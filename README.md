@@ -25,7 +25,7 @@ func RandomStr(n int) string
 
 ## usage  
 
-```bash
+```go
 package main
 
 import (
@@ -36,11 +36,41 @@ import (
 )
 
 func main() {
-    tool.Retry(3, 1, func() error {
-        fmt.Println("----")
+    err := tool.Retry(3, 1, func() error {
         return errors.New("test")
     })
+    fmt.Println(err)
 
-    tool.Download("http://localhost:8080/public/test.sh", "./test.sh")
+	err = tool.Download("http://localhost:8080/public/test.sh", "./test.sh")
+    fmt.Println(err)
+}
+```
+
+## sub package
+
+### slice
+
+#### function lists
+
+```go
+func ContainsInt(ints []int, val int) bool 
+func ContainsStr(strs []string, s string) bool 
+```
+
+#### usage  
+
+```go
+package main
+
+import (
+    "errors"
+    "fmt"
+
+    "github.com/fuxingZhang/tool/slice"
+)
+
+func main() {
+    fmt.Println(slice.ContainsInt([]int{1, 2, 3}, 1))
+	fmt.Println(slice.ContainsStr([]string{"a", "b"}, "c"))
 }
 ```
