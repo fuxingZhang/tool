@@ -1,9 +1,8 @@
 package tool
 
 import (
+	"fmt"
 	"runtime"
-
-	"github.com/rs/zerolog/log"
 )
 
 // Go goroutine with recover
@@ -16,10 +15,10 @@ func Go(cb func()) {
 
 func handlePanic() {
 	if r := recover(); r != nil {
-		log.Error().Msgf("Recovered in HandlePanic: %v", r)
+		fmt.Printf("Recovered in HandlePanic: %v \n", r)
 
 		var buf [4096]byte
 		n := runtime.Stack(buf[:], false)
-		log.Error().Str("stack", string(buf[:n])).Msg("goroutine panic")
+		fmt.Printf("goroutine panic stack: %s \n", string(buf[:n]))
 	}
 }
