@@ -6,6 +6,7 @@ import (
 	"log"
 )
 
+// PrettyPrint use json.Indent print json
 func PrettyPrint(v interface{}) {
 	b, err := json.Marshal(v)
 	if err != nil {

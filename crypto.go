@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-// GetFileMd5 获取文件md5
+// GetFileMd5 get file md5 string
 func GetFileMd5(path string) (md5Val string, err error) {
 	f, err := os.Open(path)
 	if err != nil {

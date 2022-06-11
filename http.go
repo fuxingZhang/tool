@@ -9,7 +9,7 @@ import (
 	"os"
 )
 
-// Download 下载文件
+// Download download file
 func Download(url, filepath string) (err error) {
 	resp, err := http.Get(url)
 	if err != nil {
@@ -32,7 +32,7 @@ func Download(url, filepath string) (err error) {
 	return
 }
 
-// DownloadWithReturnMD5 下载文件并且返回md5
+// DownloadWithReturnMD5 download file and return md5 string
 func DownloadWithReturnMD5(url, filepath string) (md5Val string, err error) {
 	resp, err := http.Get(url)
 	if err != nil {

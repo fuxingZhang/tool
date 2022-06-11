@@ -6,7 +6,7 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-// Go Go
+// Go goroutine with recover
 func Go(cb func()) {
 	go func() {
 		defer handlePanic()

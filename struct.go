@@ -28,6 +28,11 @@ func TrimStruct(src interface{}) error {
 				filed.SetString(strings.TrimSpace(filed.String()))
 			case reflect.Struct:
 				trim(filed)
+			case reflect.Ptr:
+				if reflect.Indirect(filed).Kind() == reflect.String {
+					str := strings.TrimSpace(reflect.Indirect(filed).String())
+					filed.Set(reflect.ValueOf(&str))
+				}
 			}
 		}
 	}

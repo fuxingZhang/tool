@@ -1,6 +1,6 @@
 package slice
 
-// ContainsInt  是否包含整数
+// ContainsInt  ContainsInt reports whether val is within ints.
 func ContainsInt(ints []int, val int) bool {
 	for _, v := range ints {
 		if v == val {
@@ -10,7 +10,7 @@ func ContainsInt(ints []int, val int) bool {
 	return false
 }
 
-// ContainsStr  是否包含字符串
+// ContainsStr  ContainsStr reports whether s is within strs.
 func ContainsStr(strs []string, s string) bool {
 	for _, str := range strs {
 		if str == s {
