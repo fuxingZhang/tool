@@ -1,5 +1,7 @@
 # tool
 
+golang common utils functions
+
 ## install 
 
 ```bash
@@ -41,7 +43,7 @@ func main() {
     })
     fmt.Println(err)
 
-	err = tool.Download("http://localhost:8080/public/test.sh", "./test.sh")
+    err = tool.Download("http://localhost:8080/public/test.sh", "./test.sh")
     fmt.Println(err)
 }
 ```
@@ -71,6 +73,6 @@ import (
 
 func main() {
     fmt.Println(slice.ContainsInt([]int{1, 2, 3}, 1))
-	fmt.Println(slice.ContainsStr([]string{"a", "b"}, "c"))
+    fmt.Println(slice.ContainsStr([]string{"a", "b"}, "c"))
 }
 ```
