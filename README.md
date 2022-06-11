@@ -8,6 +8,10 @@ golang common utils functions
 go get -u github.com/fuxingZhang/tool
 ```
 
+## doc
+
+[see here](https://pkg.go.dev/github.com/fuxingZhang/tool)
+
 ## function lists
 
 ```go

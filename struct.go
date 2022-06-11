@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-// TrimStruct 去除结构体内字符串两边的空格
+// TrimStruct Remove spaces from both sides of a string in a struct
 func TrimStruct(src interface{}) error {
 	srcVal := reflect.ValueOf(src)
 	if srcVal.Kind() != reflect.Ptr {
@@ -41,7 +41,7 @@ func TrimStruct(src interface{}) error {
 	return nil
 }
 
-// CopyStruct 结构体拷贝
+// CopyStruct Struct copy
 func CopyStruct(src, dst interface{}) error {
 	s := reflect.Indirect(reflect.ValueOf(src))
 	dstVal := reflect.ValueOf(dst)
