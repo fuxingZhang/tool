@@ -25,6 +25,8 @@ func TrimStruct(src interface{}) error
 func CopyStruct(src, dst interface{}) error
 func GetFileMd5(path string) (md5Val string, err error) 
 func CheckFileExists(filepath string) bool 
+func CheckDirExists(path string) bool 
+func CheckPathExists(path string) bool 
 func RandInt64(min, max int64) (num int64, err error)
 func RandomStr(n int) string 
 ```
