@@ -21,13 +21,13 @@ func CheckDirExists(path string) bool {
 }
 
 // CheckPathExists check if a path exists
-func CheckPathExists(path string) bool {
-	_, err := os.Stat(path)
+func CheckPathExists(path string) (exist bool, err error) {
+	_, err = os.Stat(path)
 	if err == nil {
-		return true
+		return true, nil
 	}
 	if os.IsNotExist(err) {
-		return false
+		return false, nil
 	}
-	return false
+	return false, err
 }
