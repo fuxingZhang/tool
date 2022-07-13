@@ -1,6 +1,9 @@
 package tool
 
-import "testing"
+import (
+	"os"
+	"testing"
+)
 
 func TestDownload(t *testing.T) {
 	err := Download("http://localhost:8080/public/test.sh", "./test.sh")
@@ -10,9 +13,22 @@ func TestDownload(t *testing.T) {
 }
 
 func TestDownloadAndReturnMD5(t *testing.T) {
-	md5, err := DownloadWithReturnMD5("https://alifei04.cfp.cn/creative/vcg/800/version23/VCG41175510742.jpg", "./test.jpg")
-	if err != nil {
-		t.Fatal(err)
+	path := "./test.jpg"
+	res := DownloadWithOptions("https://alifei04.cfp.cn/creative/vcg/800/version23/VCG41175510742.jpg",
+		path,
+		DownloadFileOption{})
+	if res.Err != nil {
+		t.Fatal(res.Err)
 	}
-	t.Log(md5)
+	t.Log(res.Md5)
+
+	res = DownloadWithOptions("https://alifei04.cfp.cn/creative/vcg/800/version23/VCG41175510742.jpg",
+		path,
+		DownloadFileOption{IsReturnMD5: true})
+	if res.Err != nil {
+		t.Fatal(res.Err)
+	}
+	t.Log(res.Md5)
+
+	os.Remove(path)
 }

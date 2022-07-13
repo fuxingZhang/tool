@@ -6,7 +6,7 @@ import (
 	"math/big"
 )
 
-// RandInt Generate random int64 of specified length
+// RandInt64 Generate random int64 of specified length
 func RandInt64(min, max int64) (num int64, err error) {
 	n, err := rand.Int(rand.Reader, big.NewInt(max-min))
 	if err != nil {

@@ -17,9 +17,7 @@ go get -u github.com/fuxingZhang/tool
 ```go
 func Retry(attempts int, sleep time.Duration, fn func() error) error
 func Download(url, filepath string) error
-func DownloadWithReturnMD5(url, filepath string) (md5Val string, err error) 
-func DownloadWithHeaders(url, filepath string, headers map[string]string) (err error)
-func DownloadWithHeadersAndReturnMD5(url, filepath string, headers map[string]string) (md5Val string, err error) 
+func DownloadWithOptions(url, filepath string, option DownloadFileOption) (result DownloadFileResult)
 func GetFuncName(fn interface{}) string 
 func GetFuncNameWithPath(fn interface{}) string 
 func PrettyPrint(v interface{}) 
