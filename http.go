@@ -1,6 +1,7 @@
 package tool
 
 import (
+	"context"
 	"crypto/md5"
 	"encoding/hex"
 	"errors"
@@ -35,15 +36,17 @@ func Download(url, filepath string) (err error) {
 
 // DownloadFileOption download file option
 type DownloadFileOption struct {
-	Headers     map[string]string
-	Timeout     time.Duration
-	IsReturnMD5 bool
+	Headers      map[string]string
+	Timeout      time.Duration
+	IsReturnMD5  bool
+	IsWithCancel bool
 }
 
 // DownloadFileResult dowload file result
 type DownloadFileResult struct {
-	Err error
-	Md5 string
+	Err    error
+	Md5    string
+	Cancel context.CancelFunc
 }
 
 // DownloadWithOptions download file with headers and return md5 string
@@ -51,9 +54,18 @@ func DownloadWithOptions(url, filepath string, option DownloadFileOption) (resul
 	client := &http.Client{
 		Timeout: option.Timeout,
 	}
+
 	req, err := http.NewRequest("GET", url, nil)
+	// req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
 		return
+	}
+
+	// cancel
+	if option.IsWithCancel {
+		ctx, cancel := context.WithCancel(context.Background())
+		req = req.WithContext(ctx)
+		result.Cancel = cancel
 	}
 
 	// headers
