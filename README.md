@@ -29,6 +29,8 @@ func CheckDirExists(path string) bool
 func CheckPathExists(path string) (exist bool, err error)
 func RandInt64(min, max int64) (num int64, err error)
 func RandomStr(n int) string 
+func TailFileBySystemCommand(path string, n int) (data []string, err error)
+func TailFile(path string, n int) (data []string, err error) 
 ```
 
 ## usage  
