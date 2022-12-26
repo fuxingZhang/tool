@@ -11,21 +11,27 @@ import (
 )
 
 // CheckFileExists check if a file exists
-func CheckFileExists(path string) bool {
+func CheckFileExists(path string) (exist bool, err error) {
 	info, err := os.Stat(path)
 	if os.IsNotExist(err) {
-		return false
+		return false, nil
 	}
-	return !info.IsDir()
+	if err != nil {
+		return false, err
+	}
+	return !info.IsDir(), err
 }
 
 // CheckDirExists check if a directory exists
-func CheckDirExists(path string) bool {
+func CheckDirExists(path string) (exist bool, err error) {
 	info, err := os.Stat(path)
 	if os.IsNotExist(err) {
-		return false
+		return false, nil
 	}
-	return info.IsDir()
+	if err != nil {
+		return false, err
+	}
+	return info.IsDir(), nil
 }
 
 // CheckPathExists check if a path exists
