@@ -31,6 +31,7 @@ func RandInt64(min, max int64) (num int64, err error)
 func RandomStr(n int) string 
 func TailFileBySystemCommand(path string, n int) (data []string, err error)
 func TailFile(path string, n int) (data []string, err error) 
+func LookupHost(dns, host string) (addrs []string, err error) 
 ```
 
 ## usage  
