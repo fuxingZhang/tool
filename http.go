@@ -55,6 +55,12 @@ func DownloadWithOptions(url, filepath string, option DownloadFileOption) (resul
 		Timeout: option.Timeout,
 	}
 
+	var err error
+
+	defer func() {
+		result.Err = err
+	}()
+
 	req, err := http.NewRequest("GET", url, nil)
 	// req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
