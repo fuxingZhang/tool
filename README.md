@@ -47,12 +47,9 @@ import (
 )
 
 func main() {
-    err := tool.Retry(3, 1, func() error {
-        return errors.New("test")
+    err := tool.Retry(3, time.Millisecond*100, func() error {
+        return tool.Download("http://localhost:8080/public/test.sh", "./test.sh")
     })
-    fmt.Println(err)
-
-    err = tool.Download("http://localhost:8080/public/test.sh", "./test.sh")
     fmt.Println(err)
 }
 ```
