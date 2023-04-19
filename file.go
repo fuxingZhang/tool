@@ -5,6 +5,7 @@ import (
 	"io"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"regexp"
 	"runtime"
 	"strings"
@@ -129,4 +130,78 @@ func TailFile(path string, n int) (data []string, err error) {
 		}
 	}
 	return
+}
+
+// CopyDir copy folder from src to dest
+func CopyDir(src string, dest string) error {
+	srcInfo, err := os.Stat(src)
+	if err != nil {
+		return err
+	}
+
+	err = os.MkdirAll(dest, srcInfo.Mode())
+	if err != nil {
+		return err
+	}
+
+	dir, err := os.Open(src)
+	if err != nil {
+		return err
+	}
+	defer dir.Close()
+
+	files, err := dir.Readdir(-1)
+	if err != nil {
+		return err
+	}
+
+	for _, file := range files {
+		srcPath := filepath.Join(src, file.Name())
+		destPath := filepath.Join(dest, file.Name())
+
+		if file.IsDir() {
+			err = CopyDir(srcPath, destPath)
+			if err != nil {
+				return err
+			}
+		} else {
+			err = CopyFile(srcPath, destPath)
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	return nil
+}
+
+// CopyFile copy file from src to dest
+func CopyFile(src string, dest string) error {
+	srcFile, err := os.Open(src)
+	if err != nil {
+		return err
+	}
+	defer srcFile.Close()
+
+	destFile, err := os.Create(dest)
+	if err != nil {
+		return err
+	}
+	defer destFile.Close()
+
+	_, err = io.Copy(destFile, srcFile)
+	if err != nil {
+		return err
+	}
+
+	srcInfo, err := os.Stat(src)
+	if err != nil {
+		return err
+	}
+	err = os.Chmod(dest, srcInfo.Mode())
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

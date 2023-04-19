@@ -32,6 +32,8 @@ func RandomStr(n int) string
 func TailFileBySystemCommand(path string, n int) (data []string, err error)
 func TailFile(path string, n int) (data []string, err error) 
 func LookupHost(dns, host string) (addrs []string, err error) 
+func CopyDir(src string, dest string) error 
+func CopyFile(src string, dest string) error 
 ```
 
 ## usage  
