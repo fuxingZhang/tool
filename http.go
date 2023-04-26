@@ -6,13 +6,20 @@ import (
 	"encoding/hex"
 	"errors"
 	"io"
+	"mime"
 	"net/http"
+	"net/url"
 	"os"
 	"time"
 )
 
 // Download download file
 func Download(url, filepath string) (err error) {
+	url, err = EncodeURI(url)
+	if err != nil {
+		return
+	}
+
 	resp, err := http.Get(url)
 	if err != nil {
 		return
@@ -60,6 +67,11 @@ func DownloadWithOptions(url, filepath string, option DownloadFileOption) (resul
 	defer func() {
 		result.Err = err
 	}()
+
+	url, err = EncodeURI(url)
+	if err != nil {
+		return
+	}
 
 	req, err := http.NewRequest("GET", url, nil)
 	// req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
@@ -111,4 +123,31 @@ func DownloadWithOptions(url, filepath string, option DownloadFileOption) (resul
 
 	result.Md5 = hex.EncodeToString(h.Sum(nil))
 	return
+}
+
+// EncodeURI Encode URI
+func EncodeURI(rawURL string) (string, error) {
+	u, err := url.Parse(rawURL)
+	if err != nil {
+		return rawURL, err
+	}
+	u.RawQuery = u.Query().Encode()
+	return u.String(), nil
+}
+
+// GetFilenameFromHeader get filename from header
+func GetFilenameFromHeader(header http.Header) (string, error) {
+	contentDisposition := header.Get("Content-Disposition")
+	if contentDisposition == "" {
+		return "", errors.New("Content-Disposition header not found")
+	}
+	_, params, err := mime.ParseMediaType("attachment;filename=gateway.doc")
+	if err != nil {
+		return "", err
+	}
+	filename, ok := params["filename"]
+	if !ok {
+		return "", errors.New("filename parameter not found in Content-Disposition header")
+	}
+	return filename, nil
 }
